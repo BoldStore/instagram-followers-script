@@ -15,11 +15,12 @@ with open('followerCount.txt', 'w') as f:
         for row in csv_reader:
             line_count += 1
             username = row[0]
-            response = requests.get("https://instagram.com/" + username + "/")
-            if "https://www.instagram.com/"+username+"/" in response.text:
+            try:
                 profile = instaloader.Profile.from_username(bot.context, username)
                 print(line_count,"Followers Count: ", str(profile.followers))
-                f.write(str(profile.followers))
-            else:
+                f.write(str(profile.followers)+"\n")
+            except:
                 print(line_count,"Followers Count: ", "0")
-                f.write("0")
+                f.write("0"+"\n")
+            
+
